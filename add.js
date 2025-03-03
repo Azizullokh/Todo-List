@@ -1,59 +1,75 @@
-const input = document.querySelector("#input");
-const btn = document.querySelector("#btn");
-const creat = document.querySelector("#creat-elements");
-const numbers = document.querySelector("#inf");
-const clear = document.querySelector("#btn-2");
-let todos = JSON.parse(localStorage.getItem("todos")) || [];
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("input");
+    const addButton = document.getElementById("btn");
+    const taskList = document.getElementById("task-list");
+    const clearAllButton = document.getElementById("btn-2");
+    const infoText = document.getElementById("inf");
 
-function openELements() {
-    creat.innerHTML = "";
-    todos.forEach((todo, index) => {
-        const todoItem = document.createElement("div");
-        todoItem.className = "card";
-        const todoText = document.createElement("span");
-        todoText.textContent = todo;
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "DEL";
-        deleteBtn.onclick = () => {
-            delTodo(index);
-        };
-        todoItem.appendChild(todoText);
-        todoItem.appendChild(deleteBtn);
-        creat.appendChild(todoItem);
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function loadTasks() {
+        taskList.innerHTML = "";
+        tasks.forEach((task, index) => addTaskToDOM(task.text, task.completed, index));
+        updateInfo();
+    }
+    addButton.addEventListener("click", () => {
+        if (input.value.trim() !== "") {
+            const newTask = { text: input.value, completed: false };
+            tasks.push(newTask);
+            saveTasks();
+            addTaskToDOM(newTask.text, newTask.completed, tasks.length - 1);
+            input.value = "";
+            updateInfo();
+        }
     });
-    numbers.textContent = `You have ${todos.length} pending tasks`;
-}
 
-function getNewTodo() {
-    const todo = input.value.trim();
-    if (todo) {
-        todos.push(todo);
-        input.value = "";
-        saveTodo();
-        openELements();
+    const completeBtn = document.createElement("button");
+    completeBtn.innerText = "Complete";
+    completeBtn.classList.add("complete-btn");
+
+
+    function addTaskToDOM(text, completed, index) {
+        const row = document.createElement("tr");
+        row.setAttribute("data-index", index);
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td class="task-text ${completed ? "completed" : ""}">${text}</td>
+            <td class="btns">
+                <button class="complete-btn">✔</button>
+                <button class="delete-btn">🗑</button>
+            </td>
+        `;
+        taskList.appendChild(row);
     }
-}
+    taskList.addEventListener("click", (e) => {
+        const row = e.target.closest("tr");
+        const index = row.getAttribute("data-index");
 
-function delTodo(index) {
-    todos.splice(index, 1);
-    saveTodo();
-    openELements();
-}
+        if (e.target.classList.contains("complete-btn")) {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            row.querySelector(".task-text").classList.toggle("completed");
+        }
 
-function saveTodo() {
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
+        if (e.target.classList.contains("delete-btn")) {
+            tasks.splice(index, 1);
+            saveTasks();
+            loadTasks();
+        }
+    });
+    clearAllButton.addEventListener("click", () => {
+        tasks = [];
+        saveTasks();
+        loadTasks();
+    });
 
-function clearTodo() {
-    todos = [];
-    saveTodo();
-    openELements();
-}
-btn.addEventListener("click", getNewTodo);
-clear.addEventListener("click", clearTodo);
-input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        getNewTodo();
+    function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
     }
+
+    function updateInfo() {
+        infoText.textContent = `You have ${tasks.length} pending task${tasks.length !== 1 ? "s" : ""}`;
+    }
+
+    loadTasks();
 });
-openELements();

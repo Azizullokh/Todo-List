@@ -1,110 +1,210 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     background-image: url(./images/gradient.png);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    width: 28%;
-    height: 520px;
+    width: 35%;
+    min-height: 550px;
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    padding: 30px 30px 30px 30px;
-    margin-top: 90px;
+    align-items: center;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
-    margin-bottom: 30px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: not-allowed;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    cursor: default;
 }
 
 .add {
     display: flex;
-    column-gap: 7px;
-}
-
-.card button {
-    background: red;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    width: 100%;
+    gap: 10px;
 }
 
 input {
+    flex: 1;
     padding: 12px;
-    width: 100%;
     border-radius: 6px;
     border: 1px solid gray;
     outline: none;
+    font-size: 16px;
 }
 
 ::placeholder {
-    font-size: 20px;
+    font-size: 16px;
     color: gray;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    overflow: visible;
+    font-weight: 600;
 }
 
 #btn {
     border: none;
     border-radius: 6px;
     padding: 0 15px;
-    font-size: 45px;
+    font-size: 30px;
     color: white;
     background-color: blueviolet;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.creat-elemetn {
-    display: flex;
-    flex-direction: column;
+#btn:hover {
+    background-color: darkviolet;
 }
 
-.card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f1f1f1;
-    padding: 10px;
-    margin-bottom: 10px;
+.todo-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.todo-table th,
+.todo-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.todo-table th {
+    background-color: blueviolet;
+    color: white;
+    font-size: 18px;
+}
+
+.todo-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.todo-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.complete-btn {
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
     border-radius: 5px;
+    border: none;
+}
+
+.btns {
+    display: flex;
+    gap: 5px;
+}
+
+.delete-btn {
+    background-color: red;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
 }
 
 .footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.Todo {
-    overflow-y: scroll;
-    margin-top: 20px;
-    margin-bottom: 20px;
+h2 {
+    font-size: 18px;
+    color: #333;
 }
 
 #btn-2 {
     background-color: blueviolet;
     border: none;
     border-radius: 6px;
-    padding: 10px 10px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    cursor: pointer;
+    padding: 10px 20px;
     color: white;
-    font-size: 19px;
-    width: 30%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-h2 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 25px;
+#btn-2:hover {
+    background-color: darkviolet;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+    font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        width: 90%;
+        min-height: auto;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    input {
+        font-size: 14px;
+    }
+    #btn {
+        font-size: 25px;
+    }
+    .todo-table th {
+        font-size: 16px;
+    }
+    #btn-2 {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+
+.todo-table {
     width: 100%;
-    cursor: not-allowed;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.todo-table th,
+.todo-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.todo-table th {
+    background-color: blueviolet;
+    color: white;
+    font-size: 18px;
+}
+
+.todo-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.todo-table tr:hover {
+    background-color: #f1f1f1;
 }

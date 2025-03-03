@@ -9,20 +9,26 @@
 </head>
 
 <body>
-    <div class="container" id="container">
+    <div class="container">
         <h1>Todo App</h1>
-        <div class="add" id="add">
+        <div class="add">
             <input type="text" id="input" placeholder="Add your new TODO">
             <button id="btn">+</button>
         </div>
-        <div class="Todo">
-            <div class="creat-elements" id="creat-elements">
+        <table class="todo-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Task</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="task-list">
 
-            </div>
-        </div>
-
-        <div class="footer" id="footer">
-            <h2 id="inf">You have 4 pending task</h2>
+            </tbody>
+        </table>
+        <div class="footer">
+            <h2 id="inf">You have 0 pending task</h2>
             <button id="btn-2">Clear all</button>
         </div>
     </div>
